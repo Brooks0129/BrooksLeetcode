@@ -6,6 +6,13 @@ package com.brooks;
  * @description:
  */
 public class LC_Problem_85{
+    public static void main(String[] args){
+        LC_Problem_85 lc_problem_85=new LC_Problem_85();
+        char[][] chars=new char[1][2];
+        chars[0][0]='1';
+        chars[0][1]='2';
+        lc_problem_85.maximalRectangle(chars);
+    }
     public int maximalRectangle(char[][] matrix){
         int top=getTop(matrix);
         if(top==-1){
@@ -18,8 +25,8 @@ public class LC_Problem_85{
     }
 
     private int getRight(char[][] matrix){
-        for(int i=matrix[0].length-1;i>=0;i++){
-            for(int j=matrix.length-1;j>=0;j++){
+        for(int i=matrix[0].length-1;i>=0;i--){
+            for(int j=matrix.length-1;j>=0;j--){
                 if(matrix[j][i]=='1'){
                     return i;
                 }
@@ -40,7 +47,7 @@ public class LC_Problem_85{
     }
 
     private int getBottom(char[][] matrix){
-        for(int i=matrix.length-1;i>=0;i++){
+        for(int i=matrix.length-1;i>=0;i--){
             for(int j=0;j<matrix[0].length;j++){
                 if(matrix[i][j]=='1'){
                     return i;
