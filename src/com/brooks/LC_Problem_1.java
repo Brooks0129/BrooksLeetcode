@@ -19,7 +19,6 @@ public class LC_Problem_1{
             }else{
                 map.put(nums[i],i);
             }
-
         }
         return res;
     }
