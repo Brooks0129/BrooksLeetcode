@@ -4,6 +4,13 @@ package com.brooks;
  * @date: 2016/7/10.
  */
 public class LC_Problem_97_DP{
+    /**
+     * 动态规划
+     * @param s1
+     * @param s2
+     * @param s3
+     * @return
+     */
     public boolean isInterleave(String s1,String s2,String s3){
         int l1=s1.length();
         int l2=s2.length();
