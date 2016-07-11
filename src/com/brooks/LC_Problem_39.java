@@ -13,8 +13,7 @@ public class LC_Problem_39{
         getResult(res,new ArrayList<Integer>(),candidates,target,0);
         return res;
     }
-    private void getResult(List<List<Integer>> res,ArrayList<Integer> cur,
-                           int[] candidates,int target,int i){
+    private void getResult(List<List<Integer>> res,ArrayList<Integer> cur,int[] candidates,int target,int i){
         if(target>0){
             for(int j=i;j<candidates.length;j++){
                 if(target>=candidates[j]){
