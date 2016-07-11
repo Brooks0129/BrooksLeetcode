@@ -3,9 +3,9 @@ package com.brooks;
  * @author: 李松达
  * @date: 2016/7/2.
  */
-public class LC_Probelm_42{
+public class LC_Problem_42{
     public static void main(String[] args){
-        LC_Probelm_42 lc_probelm_42=new LC_Probelm_42();
+        LC_Problem_42 lc_probelm_42=new LC_Problem_42();
         int trap=lc_probelm_42.trap(new int[]{0,1,0,2,1,0,1,3,2,1,2,1});
         System.out.println(trap);
     }
