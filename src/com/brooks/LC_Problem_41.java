@@ -4,11 +4,6 @@ package com.brooks;
  * @date: 2016/7/2.
  */
 public class LC_Problem_41{
-    public static void main(String[] args){
-        LC_Problem_41 lc=new LC_Problem_41();
-        int index=lc.firstMissingPositive(new int[]{4,3,1,-1});
-        System.out.println(index);
-    }
     public int firstMissingPositive(int[] nums){
         if(nums==null||nums.length==0){
             return 1;
