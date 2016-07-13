@@ -1,9 +1,9 @@
 package com.brooks;
-
 /**
  * @author: 李松达
  * @time: 2016/7/7 16:44.
- * @description:
+ * @description: Given a 2D binary matrix filled with 0's and 1's,
+ * find the largest rectangle containing all ones and return its area.
  */
 public class LC_Problem_85{
     public static void main(String[] args){
@@ -14,58 +14,47 @@ public class LC_Problem_85{
         lc_problem_85.maximalRectangle(chars);
     }
     public int maximalRectangle(char[][] matrix){
-        int top=getTop(matrix);
-        if(top==-1){
+        if(matrix==null||matrix.length==0||matrix[0].length==0){
             return 0;
         }
-        int bottom=getBottom(matrix);
-        int left=getLeft(matrix);
-        int right=getRight(matrix);
-        return (bottom-top+1)*(right-left+1);
-    }
-
-    private int getRight(char[][] matrix){
-        for(int i=matrix[0].length-1;i>=0;i--){
-            for(int j=matrix.length-1;j>=0;j--){
-                if(matrix[j][i]=='1'){
-                    return i;
-                }
-            }
-        }
-        return -1;
-    }
-
-    private int getLeft(char[][] matrix){
+        int[] dp=new int[matrix[0].length];
         for(int i=0;i<matrix[0].length;i++){
-            for(int j=0;j<matrix.length;j++){
-                if(matrix[j][i]=='1'){
-                    return i;
-                }
-            }
+            dp[i]=matrix[0][i]-'0';
         }
-        return -1;
-    }
-
-    private int getBottom(char[][] matrix){
-        for(int i=matrix.length-1;i>=0;i--){
+        int max=largestRectangleArea(dp);
+        for(int i=1;i<matrix.length;i++){
             for(int j=0;j<matrix[0].length;j++){
-                if(matrix[i][j]=='1'){
-                    return i;
-                }
+                dp[j]=matrix[i][j]=='0'?0:(1+dp[j]);
             }
+            max=Math.max(max,largestRectangleArea(dp));
         }
-        return -1;
+        return max;
     }
-
-    private int getTop(char[][] matrix){
-        for(int i=0;i<matrix.length;i++){
-            for(int j=0;j<matrix[0].length;j++){
-                if(matrix[i][j]=='1'){
-                    return i;
-                }
-            }
+    public int largestRectangleArea(int[] heights){
+        if(heights==null||heights.length==0){
+            return 0;
         }
-        return -1;
-
+        return getArea(heights,0,heights.length);
+    }
+    private int getArea(int[] heights,int start,int end){
+        if(start+1==end){
+            return heights[start];
+        }
+        boolean sorted=true;
+        int minIndex=start;
+        for(int i=start;i<end;i++){
+            if(i>start&&heights[i]<heights[i-1]) sorted=false;
+            if(heights[minIndex]>heights[i]) minIndex=i;
+        }
+        if(sorted){
+            int max=0;
+            for(int i=start;i<end;i++){
+                max=Math.max(max,heights[i]*(end-i));
+            }
+            return max;
+        }
+        int areaLeft=(minIndex>start)?getArea(heights,start,minIndex):0;
+        int areaRight=(minIndex<end-1)?getArea(heights,minIndex+1,end):0;
+        return Math.max((end-start)*heights[minIndex],Math.max(areaLeft,areaRight));
     }
 }
