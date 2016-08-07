@@ -4,38 +4,37 @@ package com.brooks;
  * @date: 2016/8/6.
  */
 public class LC_Problem_222{
-    public int computeArea(int A,int B,int C,int D,int E,int F,int G,int H){
-        int a=Math.min(A,E);
-        int e=a==A?E:A;
-        int c=a==A?C:G;
-        int g=a==A?G:C;
-        int x=0;
-        int cross;
-        if(e>=c){
-            x=0;
-        }else if(g>=c){
-            x=c-e;
-        }else{
-            x=g-e;
+    public int countNodes(TreeNode root){
+        if(root==null){
+            return 0;
         }
-        int b=Math.min(B,F);
-        int f=b==B?F:B;
-        int d=b==B?D:H;
-        int h=b==B?H:D;
-        int y=0;
-        if(f>=d){
-            y=0;
-        }else if(h>=d){
-            y=d-f;
-        }else{
-            y=h-f;
-        }
-        cross=x*y;
-        return (C-A)*(D-B)+(G-E)*(H-F)-cross;
+        return bs(root,1,mostLeftLevel(root,1));
     }
-    /**
-     *     int left = max(A,E), right = max(min(C,G), left);
-     int bottom = max(B,F), top = max(min(D,H), bottom);
-     return (C-A)*(D-B) - (right-left)*(top-bottom) + (G-E)*(H-F);
+    private int bs(TreeNode root,int level,int h){
+        if(level==h){
+            return 1;
+        }
+        if(mostLeftLevel(root.right,level+1)==h){
+            return (1<<(h-level))+bs(root.right,level+1,h);
+        }else{
+            return (1<<(h-level-1))+bs(root.left,level+1,h);
+        }
+    }
+    private int mostLeftLevel(TreeNode node,int level){
+        while(node!=null){
+            level++;
+            node=node.left;
+        }
+        return level-1;
+    }
+    /**int height(TreeNode root) {
+     return root == null ? -1 : 1 + height(root.left);
+     }
+     public int countNodes(TreeNode root) {
+     int h = height(root);
+     return h < 0 ? 0 :
+     height(root.right) == h-1 ? (1 << h) + countNodes(root.right)
+     : (1 << h-1) + countNodes(root.left);
+     }
      */
 }
