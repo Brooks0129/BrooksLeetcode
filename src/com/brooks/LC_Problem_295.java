@@ -19,11 +19,12 @@ public class LC_Problem_295{
                 small.offer(num);
                 large.offer(small.poll());
             }
+            isEven=!isEven;
         }
         // Returns the median of current data stream
         public double findMedian(){
             if(isEven){
-                return (small.peek()+large.peek())>>>1;
+                return (small.peek()+large.peek())/2.0;
             }else {
                 return small.peek();
             }
