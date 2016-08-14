@@ -5,13 +5,22 @@ package com.brooks;
  */
 public class LC_Problem_342{
     public boolean isPowerOfFour(int num){
-        if((num&1)==1){
+        if(num<=0){
             return false;
         }
-        num>>>=1;
-        if((num&1)==1){
-            return false;
+        if(num==1){
+            return true;
         }
-        return true;
+        int temp=num;
+        int count=0;
+        while(num!=0){
+            if((num&1)==0){
+                count++;
+            }else{
+                break;
+            }
+            num>>>=1;
+        }
+        return count%2==0&&1<<count==temp;
     }
 }
